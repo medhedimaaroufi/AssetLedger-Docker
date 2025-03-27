@@ -12,7 +12,7 @@ if [ -z "$ROLE" ]; then
     exit 1
 fi
 
-# Base nodeos command (without 'nodeos' prefix here, added at exec)
+# Base nodeos command
 BASE_CMD="--data-dir $DATA_DIR --config-dir $CONFIG_DIR --genesis-json $CONFIG_DIR/genesis.json"
 
 # Configure based on ROLE
@@ -20,7 +20,6 @@ case "$ROLE" in
     "seed")
         echo "Configuring as Seed Node..."
         cat <<EOF > $CONFIG_FILE
-genesis-json = $CONFIG_DIR/genesis.json
 data-dir = $DATA_DIR
 p2p-listen-endpoint = 0.0.0.0:9876
 plugin = eosio::net_plugin
@@ -32,7 +31,6 @@ EOF
     "api")
         echo "Configuring as API Node..."
         cat <<EOF > $CONFIG_FILE
-genesis-json = $CONFIG_DIR/genesis.json
 data-dir = $DATA_DIR
 http-server-address = 0.0.0.0:8888
 plugin = eosio::http_plugin
@@ -44,7 +42,6 @@ EOF
     "full")
         echo "Configuring as Full Node (Block Producer)..."
         cat <<EOF > $CONFIG_FILE
-genesis-json = $CONFIG_DIR/genesis.json
 data-dir = $DATA_DIR
 http-server-address = 0.0.0.0:8888
 p2p-listen-endpoint = 0.0.0.0:9876

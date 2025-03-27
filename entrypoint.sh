@@ -57,5 +57,4 @@ EOF
         ;;
 esac
 
-# Launch nodeos with the base command and any additional arguments
 exec /usr/bin/nodeos $NODEOS_CMD "$@"

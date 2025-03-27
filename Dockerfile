@@ -2,6 +2,7 @@ FROM ubuntu:20.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 
+# Install dependencies required by eosio and general tools
 RUN apt-get update && apt-get install -y \
     wget \
     curl \
@@ -10,13 +11,17 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libgmp-dev \
     libusb-1.0-0-dev \
+    libtinfo5 \
+    libcurl3-gnutls \
+    libpq5 \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /opt/assetledger
 
-RUN wget https://github.com/eosio/eos/releases/download/v2.1.0/eosio_2.1.0-1-ubuntu-20.04_amd64.deb && \
+# Download and install eosio 2.1.0, then clean up
+RUN wget https://github.com/EOSIO/eos/releases/download/v2.1.0/eosio_2.1.0-1-ubuntu-20.04_amd64.deb && \
     dpkg -i eosio_2.1.0-1-ubuntu-20.04_amd64.deb && \
-    rm eeosio_2.1.0-1-ubuntu-20.04_amd64.deb
+    rm eosio_2.1.0-1-ubuntu-20.04_amd64.deb
 
 RUN mkdir -p /root/.local/share/eosio/nodeos/data /root/.local/share/eosio/nodeos/config
 

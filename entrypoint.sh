@@ -1,21 +1,17 @@
 #!/bin/bash
 set -e
 
-# Paths
 CONFIG_DIR="/root/.local/share/eosio/nodeos/config"
 DATA_DIR="/root/.local/share/eosio/nodeos/data"
 CONFIG_FILE="$CONFIG_DIR/config.ini"
 
-# Validate ROLE
 if [ -z "$ROLE" ]; then
     echo "ROLE environment variable must be set to 'seed', 'api', or 'full'"
     exit 1
 fi
 
-# Base nodeos command
 NODEOS_CMD="nodeos --data-dir $DATA_DIR --config-dir $CONFIG_DIR --genesis-json $CONFIG_DIR/genesis.json"
 
-# Configure based on ROLE
 case "$ROLE" in
     "seed")
         echo "Configuring as Seed Node..."
@@ -65,5 +61,4 @@ EOF
         ;;
 esac
 
-# Append additional args and execute
 exec $NODEOS_CMD "$@"

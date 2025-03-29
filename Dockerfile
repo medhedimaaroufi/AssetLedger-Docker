@@ -26,7 +26,8 @@ RUN rm eosio_2.1.0-1-ubuntu-20.04_amd64.deb
 
 RUN mkdir -p /root/.local/share/eosio/nodeos/data /root/.local/share/eosio/nodeos/config
 
-COPY genesis.json /root/.local/share/eosio/nodeos/config/genesis.json
+# Copy genesis.json to a temporary location
+COPY genesis.json /opt/assetledger/genesis.json
 COPY config.ini /root/.local/share/eosio/nodeos/config/config.ini.template
 COPY entrypoint.sh /entrypoint.sh
 

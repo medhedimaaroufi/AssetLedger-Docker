@@ -1,0 +1,45 @@
+services:
+  fullnode:
+    image: assetledger-node
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ROLE=full
+      - P2P_PEERS=seednode:9876
+    volumes:
+      - ./fullnode-data:/root/.local/share/eosio/nodeos
+    ports:
+      - "18888:8888"  # HTTP API port
+      - "9876:9876"   # P2P port
+    networks:
+      - assetledger-net
+
+  seednode:
+    image: assetledger-node
+    environment:
+      - ROLE=seed
+      - P2P_PEERS=fullnode:9876
+      - FULLNODE_PEER_KEY=EOS1111111111111111111111111111111114T1Anm
+    volumes:
+      - ./seednode-data:/root/.local/share/eosio/nodeos
+    ports:
+      - "19876:9876"  # P2P port
+    networks:
+      - assetledger-net
+
+  apinode:
+    image: assetledger-node
+    environment:
+      - ROLE=api
+      - P2P_PEERS=fullnode:9876
+    volumes:
+      - ./apinode-data:/root/.local/share/eosio/nodeos
+    ports:
+      - "28888:8888"  # HTTP API port (changed to avoid conflict with fullnode)
+    networks:
+      - assetledger-net
+
+networks:
+  assetledger-net:
+    driver: bridge

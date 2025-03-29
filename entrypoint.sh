@@ -1,29 +1,26 @@
 #!/bin/bash
 set -e
 
-# Define paths
 CONFIG_DIR="/root/.local/share/eosio/nodeos/config"
 DATA_DIR="/root/.local/share/eosio/nodeos/data"
 CONFIG_FILE="$CONFIG_DIR/config.ini"
 
-# Validate ROLE environment variable
 if [ -z "$ROLE" ]; then
     echo "ROLE environment variable must be set to 'seed', 'api', or 'full'"
     exit 1
 fi
 
-# Base nodeos command with essential arguments
 NODEOS_CMD="--data-dir $DATA_DIR --config-dir $CONFIG_DIR --genesis-json $CONFIG_DIR/genesis.json"
 
-# Configure based on ROLE
 case "$ROLE" in
     "seed")
         echo "Configuring as Seed Node..."
         cat <<EOF > $CONFIG_FILE
-p2p-listen-endpoint = 0.0.0.0:9876
 plugin = eosio::net_plugin
 plugin = eosio::chain_plugin
 p2p-peer-address = $P2P_PEERS
+allowed-connection = specified
+peer-key = $FULLNODE_PEER_KEY
 EOF
         ;;
     "api")

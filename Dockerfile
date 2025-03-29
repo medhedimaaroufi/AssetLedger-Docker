@@ -17,9 +17,12 @@ RUN apt-get update && apt-get install -y \
 
 WORKDIR /opt/assetledger
 
-RUN wget https://github.com/EOSIO/eos/releases/download/v2.1.0/eosio_2.1.0-1-ubuntu-20.04_amd64.deb && \
-    dpkg -i eosio_2.1.0-1-ubuntu-20.04_amd64.deb && \
-    rm eosio_2.1.0-1-ubuntu-20.04_amd64.deb
+# Fix the filename case to match the downloaded file
+RUN wget https://github.com/EOSIO/eos/releases/download/v2.1.0/eosio_2.1.0-1-ubuntu-20.04_amd64.deb
+
+RUN dpkg -i eosio_2.1.0-1-ubuntu-20.04_amd64.deb 
+
+RUN rm eosio_2.1.0-1-ubuntu-20.04_amd64.deb 
 
 RUN mkdir -p /root/.local/share/eosio/nodeos/data /root/.local/share/eosio/nodeos/config
 

@@ -20,7 +20,7 @@ services:
     environment:
       - ROLE=seed
       - P2P_PEERS=fullnode:9876
-      - FULLNODE_PEER_KEY=EOS1111111111111111111111111111111114T1Anm
+      - FULLNODE_PEER_KEY=EOS6M2c6oKriN1RMPLQtixDuigiYNoxV1fXqvuMjUFYrGorV5Hk2x
     volumes:
       - ./seednode-data:/root/.local/share/eosio/nodeos
     ports:

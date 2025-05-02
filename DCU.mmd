@@ -1,0 +1,67 @@
+%%{init: {'theme': 'default', 'flowchart': {'curve': 'linear'}}}%%
+flowchart TD
+  %% Actors
+  Minter(["👤 Minter"])
+  Network(["🖧 AssetLedger Network"])
+
+  %% Use Cases
+  Minter --> UC1["Register"]
+  Minter --> UC2["Login"]
+  Minter --> UC3["Logout"]
+  Minter --> UC4["Send AXT Tokens"]
+  Minter --> UC5["Receive AXT Tokens"]
+  Minter --> UC6["View Balance"]
+  Minter --> UC7["View Transaction History"]
+  Minter --> UC8["View Recent Vote"]
+  Minter --> UC9["View Recent Transfers"]
+  Minter --> UC10["Create Referral Key"]
+  Minter --> UC11["Configure Node with referral key"]
+  Minter --> UC12["Start/Stop Node"]
+  Minter --> UC13["Stake AXT"]
+  Minter --> UC14["Vote for Network Operators"]
+  Minter --> UC15["Claim Rewards"]
+  Minter --> UC16["Participate in Consensus"]
+
+  %% Extensions and Includes
+  UC3 -->|<<include>>| UC2
+  UC4 -->|<<include>>| UC2
+  UC5 -->|<<include>>| UC2
+  UC6 -->|<<include>>| UC2
+  UC7 -->|<<include>>| UC2
+  UC8 -->|<<include>>| UC2
+  UC9 -->|<<include>>| UC2
+  UC10 -->|<<include>>| UC2
+  UC11 -->|<<include>>| UC2
+  UC12 -->|<<include>>| UC2
+  UC13 -->|<<include>>| UC2
+  UC14 -->|<<include>>| UC2
+  UC15 -->|<<include>>| UC2
+  UC16 -->|<<include>>| UC2
+
+  %% Network interactions
+  UC17 --> Network
+  UC4 --> Network
+  UC5 --> Network
+  UC6 --> Network
+  UC7 --> Network
+  UC8 --> Network
+  UC9 --> Network
+  UC10 --> Network
+  UC11 --> Network
+  UC12 --> Network
+  UC13 --> Network
+  UC14 --> Network
+  UC15 --> Network
+  UC16 --> Network
+
+  %% Notes as tooltips (not visually shown unless rendered with interaction)
+  click UC1 "Join the network, typically using a referral code for setup." "tooltip"
+  click UC2 "Access the app with account name and private key." "tooltip"
+  click UC10 "Generate an invitation for new users to join the network." "tooltip"
+  click UC11 "Set up the network connection using referral key information." "tooltip"
+  click UC4 "Transfer digital currency to another user’s account." "tooltip"
+  click UC9 "Check only the latest token transactions." "tooltip"
+  click UC8 "Review recent votes for network operators." "tooltip"
+  click UC13 "Lock tokens to support network or earn rewards." "tooltip"
+  click UC14 "Choose trusted operators to manage the network." "tooltip"
+  click UC15 "Collect earnings from staking or voting activities." "tooltip"

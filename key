@@ -1,0 +1,21 @@
+cleos -u http://127.0.0.1:8888 system newaccount eosio tasnim \
+--stake-net "10.0000 AXT" --stake-cpu "10.0000 AXT" --buy-ram-kbytes 8 \
+--transfer \
+--sign \
+EOS7GkKpbeypyN6GkLcj3wyG5XXGq797tP1NAXJA3ad8N9MsHrFQA EOS7GkKpbeypyN6GkLcj3wyG5XXGq797tP1NAXJA3ad8N9MsHrFQA
+
+PW5KHUxkWgVGcKRVzVraHXRkS4x93PmMn9ibhrDhSCqSunz4KcpNH
+
+cleos wallet create --to-console --name hedi
+
+cleos wallet import --name hedi --private-key 5KQUNVMv1usbWGLyWGvEGBCfi3SpFqzGpL5UbRMJcG1rcgNPKor
+
+EOS8cEr7LxFxpAdptPHo1DTPUFs5bv7Ptb5t1FN8VW4VzmgoYhoCD
+
+cleos -u http://127.0.0.1:8888 system newaccount eosio tasnim \
+> EOS7GkKpbeypyN6GkLcj3wyG5XXGq797tP1NAXJA3ad8N9MsHrFQA \
+> EOS7GkKpbeypyN6GkLcj3wyG5XXGq797tP1NAXJA3ad8N9MsHrFQA \
+> --stake-net "10.0000 AXT" --stake-cpu "10.0000 AXT" --buy-ram "10.0000 AXT" \
+> --transfer
+
+cleos -u http://127.0.0.1:8888 system listproducers

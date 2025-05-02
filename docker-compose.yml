@@ -21,6 +21,7 @@ services:
     environment:
       - ROLE=full
       - P2P_PEERS=bp-node:9876 api-node:9876
+      - PRODUCER_NAME=validator
     ports:
       - "8889:8888"
       - "9877:9876"

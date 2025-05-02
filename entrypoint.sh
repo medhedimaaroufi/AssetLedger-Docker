@@ -6,7 +6,7 @@ GENESIS_FILE="/root/.local/share/eosio/nodeos/config/genesis.json"
 # Ensure the config directory exists
 mkdir -p /root/.local/share/eosio/nodeos/config
 
-# Copy genesis.json to the expected location if it doesn't exist
+# Copy genesis.json
 if [ ! -f "$GENESIS_FILE" ]; then
     echo "Copying genesis.json to $GENESIS_FILE..."
     cp /opt/assetledger/genesis.json "$GENESIS_FILE"
@@ -31,10 +31,13 @@ plugin = eosio::http_plugin
 plugin = eosio::chain_api_plugin
 plugin = eosio::net_plugin
 plugin = eosio::producer_plugin
-p2p-peer-address = $P2P_PEERS
 enable-stale-production = true
 resource-monitor-space-threshold = 95
 EOF
+        # Add each P2P peer on a separate line
+        for peer in $P2P_PEERS; do
+            echo "p2p-peer-address = $peer" >> $CONFIG_FILE
+        done
         ;;
     "seed")
         echo "Configuring as Seed Node..."
@@ -42,9 +45,11 @@ EOF
 plugin = eosio::net_plugin
 plugin = eosio::chain_plugin
 p2p-server-address = 0.0.0.0:9876
-p2p-peer-address = $P2P_PEERS
 resource-monitor-space-threshold = 95
 EOF
+        for peer in $P2P_PEERS; do
+            echo "p2p-peer-address = $peer" >> $CONFIG_FILE
+        done
         ;;
     "api")
         echo "Configuring as API Node..."
@@ -54,9 +59,11 @@ p2p-server-address = 0.0.0.0:9876
 plugin = eosio::http_plugin
 plugin = eosio::chain_api_plugin
 plugin = eosio::net_plugin
-p2p-peer-address = $P2P_PEERS
 resource-monitor-space-threshold = 95
 EOF
+        for peer in $P2P_PEERS; do
+            echo "p2p-peer-address = $peer" >> $CONFIG_FILE
+        done
         ;;
     *)
         echo "Unknown role: $ROLE"

@@ -1,45 +1,54 @@
 services:
-  fullnode:
-    image: assetledger-node
+  bp-node:
     build:
       context: .
       dockerfile: Dockerfile
     environment:
       - ROLE=full
-      - P2P_PEERS=seednode:9876
-    volumes:
-      - ./fullnode-data:/root/.local/share/eosio/nodeos
+      - P2P_PEERS=validator-node:9876 api-node:9876
     ports:
-      - "18888:8888"  # HTTP API port
-      - "9876:9876"   # P2P port
+      - "8888:8888"
+      - "9876:9876"
+    volumes:
+      - bp-node-data:/root/.local/share/eosio/nodeos/data
     networks:
       - assetledger-net
 
-  seednode:
-    image: assetledger-node
+  validator-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
-      - ROLE=seed
-      - P2P_PEERS=fullnode:9876
-      - FULLNODE_PEER_KEY=EOS6M2c6oKriN1RMPLQtixDuigiYNoxV1fXqvuMjUFYrGorV5Hk2x
-    volumes:
-      - ./seednode-data:/root/.local/share/eosio/nodeos
+      - ROLE=full
+      - P2P_PEERS=bp-node:9876 api-node:9876
     ports:
-      - "19876:9876"  # P2P port
+      - "8889:8888"
+      - "9877:9876"
+    volumes:
+      - validator-node-data:/root/.local/share/eosio/nodeos/data
     networks:
       - assetledger-net
 
-  apinode:
-    image: assetledger-node
+  api-node:
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
       - ROLE=api
-      - P2P_PEERS=fullnode:9876
-    volumes:
-      - ./apinode-data:/root/.local/share/eosio/nodeos
+      - P2P_PEERS=bp-node:9876 validator-node:9876
     ports:
-      - "28888:8888"  # HTTP API port (changed to avoid conflict with fullnode)
+      - "8890:8888"
+      - "9878:9876"
+    volumes:
+      - api-node-data:/root/.local/share/eosio/nodeos/data
     networks:
       - assetledger-net
 
 networks:
   assetledger-net:
     driver: bridge
+
+volumes:
+  bp-node-data:
+  validator-node-data:
+  api-node-data:

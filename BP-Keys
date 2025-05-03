@@ -1,0 +1,83 @@
+```bash
+PS C:\Users\Good Partner\Desktop\assetledger-nodes> docker exec -it assetledger-nodes-bp-node-1 bash
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 wallet create --name eosio --to-console
+
+"/usr/opt/eosio/2.1.0/bin/keosd" launched
+Creating wallet: eosio
+Save password to use in the future to unlock this wallet.
+Without password imported keys will not be retrievable.
+"PW5JPg134YA8cQ7eqZKuCcmkWwfGJi96rjBvjRhDcc6p6eLt1xynf"
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 wallet import --name eosio --private-key 5KHUxkWgVGcKRVzVraHXRkS4x93PmMn9ibhrDhSCqSunz4KcpNH
+imported private key for: EOS69vh6efKX99YPbA9mUwyMomZM9g65Weaxfx76t2tDJpJAy19dx
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 set contract eosio /opt/assetledger/contracts/eosio.bios -p eosio@active
+Reading WASM from /opt/assetledger/contracts/eosio.bios/eosio.bios.wasm...
+Publishing contract...
+executed transaction: 0992240b0414577bb8c85c22113aeac9a6646e64cce65f3b3e0bae8b2e88ec2b  20616 bytes  9563 us
+#         eosio <= eosio::setcode               "0000000000ea305500008c8d030061736d0100000001f4012660000060037f7f7f017f60037f7e7f017e60047f7f7f7f006...
+#         eosio <= eosio::setabi                "0000000000ea3055a1020e656f73696f3a3a6162692f312e3200040e70726f64756365725f656e74727900020d70726f647...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 create account eosio eosio.token EOS69vh6efKX99YPbA9mUwyMomZM9g65Weaxfx76t2tDJpJAy19dx
+executed transaction: 48ee57f9af1a59f9c34d3ab416b75d01fd7e692be469d37d178f0894e1281fa9  200 bytes  8054 us
+#         eosio <= eosio::newaccount            "0000000000ea305500a6823403ea305501000000010002a6bf558c0d509de781779f3129fecb40b3bc61c8f4085df8e7138...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 create account eosio governance EOS69vh6efKX99YPbA9mUwyMomZM9g65Weaxfx76t2tDJpJAy19dx
+executed transaction: bca30ce59c8d1e843e3ccfc5f867c4557db912dbe9e0d8716cc67802e277b143  200 bytes  1487 us
+#         eosio <= eosio::newaccount            "0000000000ea3055008042d3ccab366501000000010002a6bf558c0d509de781779f3129fecb40b3bc61c8f4085df8e7138...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 create account eosio nft.contract EOS69vh6efKX99YPbA9mUwyMomZM9g65Weaxfx76t2tDJpJAy19dx
+executed transaction: 1d3d34e89ae1dd26d4863013c3f7573a18f058e2059109b45025c0db37629218  200 bytes  539 us
+#         eosio <= eosio::newaccount            "0000000000ea30559091b9795204f29a01000000010002a6bf558c0d509de781779f3129fecb40b3bc61c8f4085df8e7138...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 set contract eosio /opt/assetledger/contracts/eosio.token -p eosio@active
+Reading WASM from /opt/assetledger/contracts/eosio.token/eosio.token.wasm...
+Publishing contract...
+executed transaction: 84cc418739bd5d5959a74684dcc9ae26e02a274a5ecb188fe32fc199babc859a  18872 bytes  2358 us
+#         eosio <= eosio::setcode               "0000000000ea30550000ace8020061736d010000000186022960000060037f7f7f017f60037f7e7f017e60047f7f7f7f006...
+#         eosio <= eosio::setabi                "0000000000ea3055dd020e656f73696f3a3a6162692f312e320005076163636f756e7400010762616c616e6365056173736...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 set contract eosio /opt/assetledger/contracts/eosio.system -p eosio@active
+Reading WASM from /opt/assetledger/contracts/eosio.system/eosio.system.wasm...
+Publishing contract...
+executed transaction: 1f97787f4ce417b54201893673b80c7faed0241767f9507ac775ce0d2f4fca1e  34616 bytes  4012 us
+#         eosio <= eosio::setcode               "0000000000ea30550000e3d3060061736d010000000195022b60000060037f7f7f017f60037f7e7f017e60047f7f7f7f006...
+#         eosio <= eosio::setabi                "0000000000ea3055820a0e656f73696f3a3a6162692f312e32000e0c636c61696d7265776172647300010870726f6475636...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 set contract eosio /opt/assetledger/contracts/nftcontract/ -p eosio@active
+Reading WASM from /opt/assetledger/contracts/nftcontract/nftcontract.wasm...
+Publishing contract...
+executed transaction: 7f3a93fc5dd87da99ad9a0c91990eea748254a58a5c934990dc4e1da2cc71b30  20120 bytes  2608 us
+#         eosio <= eosio::setcode               "0000000000ea305500008694030061736d0100000001ae022d60000060037f7f7f017f60037f7e7f017e60047f7f7f7f006...
+#         eosio <= eosio::setabi                "0000000000ea305592050e656f73696f3a3a6162692f312e3200060b61737365745f656e74727900040861737365745f696...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+root@d553477b6836:/opt/assetledger# cleos -u http://localhost:8888 set contract eosio /opt/assetledger/contracts/nodegovern/ -p eosio@active
+Reading WASM from /opt/assetledger/contracts/nodegovern/nodegovern.wasm...
+Publishing contract...
+executed transaction: 3a971b730231be8eb747125b978a4aeeb1dca366e5871bacddbfa26d5cb695c3  20872 bytes  4018 us
+#         eosio <= eosio::setcode               "0000000000ea30550000b19b030061736d01000000019c022b60000060037f7f7f017f60037f7e7f017e60047f7f7f7f006...
+#         eosio <= eosio::setabi                "0000000000ea3055c5040e656f73696f3a3a6162692f312e3200080963616e626570726f6400010475736572046e616d650...
+warning: transaction executed locally, but may not be confirmed by the network yet         ]
+
+
+
+```

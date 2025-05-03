@@ -1,0 +1,16 @@
+stateDiagram-v2
+    [*] --> PreSelectedBP: Pre-selected (first 10 minutes)
+    [*] --> API_Seed_Full: Node joins network
+    
+    PreSelectedBP --> BlockProducer: After 10 minutes (voting begins)
+    API_Seed_Full --> Validator: After 60 days activity
+    Validator --> Candidate: 45 voting sessions
+    Candidate --> BlockProducer: Elected (top 20 every 6 hours)
+    BlockProducer --> Candidate: Not re-elected (every 6 hours)
+    Candidate --> Validator: Not elected
+
+    note right of API_Seed_Full: Earns 10 AXT/hour
+    note right of Validator: Earns 10 AXT/hour
+    note right of Candidate: No AXT unless elected
+    note right of BlockProducer: Earns per-block AXT
+    note right of PreSelectedBP: Collects all AXT in first 10min

@@ -31,10 +31,12 @@ COPY bp-node-config.ini /bp-node-config.ini
 COPY validator-node-config.ini /validator-node-config.ini
 COPY api-node-config.ini /api-node-config.ini
 COPY entrypoint.sh /entrypoint.sh
+COPY deploy_contracts.sh /deploy_contracts.sh
 
 # Convert line endings for entrypoint.sh
 RUN dos2unix /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+RUN chmod +x /deploy_contracts.sh
 
 EXPOSE 8888 9876
 
